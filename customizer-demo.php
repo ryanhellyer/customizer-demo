@@ -33,8 +33,27 @@ class Customizer_Demo {
 	public function __construct() {
 		add_action( 'customize_register', array( $this, 'theme_customizer' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'script' ) );
+		add_action( 'customize_controls_print_styles', array( $this, 'customizer_styles' ), 999 );
 	}
 
+	/**
+	 * Adds some styles to the WordPress Customizer.
+	 */
+	public function customizer_styles() {
+		if ( 'version_2' != get_theme_mod( 'demo_setup' ) ) {
+			?>
+			<style>
+				#customize-control-demo_setup_extra {
+					display: none !important;
+				}
+			</style><?php
+		}
+
+	}
+
+	/**
+	 * Adding the customizer script.
+	 */
 	public function script() {
 
 		wp_enqueue_script( 
